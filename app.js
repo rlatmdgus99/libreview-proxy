@@ -7,7 +7,6 @@ const app = express();
 
 // Configuration
 const PORT = process.env.PORT || 3000;
-const HOST = "localhost";
 const API_SERVICE_URL = "https://api-us.libreview.io";
 const API_DOCS_URL = "https://libreview-unofficial.stoplight.io";
 
@@ -29,6 +28,6 @@ app.use(
   })
 );
 
-app.listen(PORT, HOST, () => {
-  console.log(`Proxy runnning: http://${HOST}:${PORT}`);
+app.listen(PORT, () => {
+  console.log(`Proxy runnning: http://localhost:${PORT}`);
 });
