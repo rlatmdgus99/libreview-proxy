@@ -2,13 +2,11 @@ const express = require("express");
 const morgan = require("morgan");
 const { createProxyMiddleware } = require("http-proxy-middleware");
 
-// Create Express Server
-const app = express();
-
-// Configuration
 const PORT = process.env.PORT || 3000;
 const API_SERVICE_URL = "https://api-{region}.libreview.io";
 const API_DOCS_URL = "https://libreview-unofficial.stoplight.io";
+
+const app = express();
 
 app.use(morgan("dev"));
 
