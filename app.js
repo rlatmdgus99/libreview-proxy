@@ -13,7 +13,9 @@ const API_DOCS_URL = "https://libreview-unofficial.stoplight.io";
 app.use(morgan("dev"));
 
 app.get("/", (_req, res, _next) => {
-  res.send(`Proxy for the unofficial API docs for LibreView at ${API_DOCS_URL}.`);
+  res.send(
+    `Proxy for the unofficial API docs for LibreView at ${API_DOCS_URL}.`
+  );
 });
 
 app.use(
@@ -21,7 +23,7 @@ app.use(
   createProxyMiddleware({
     target: API_SERVICE_URL,
     changeOrigin: true,
-    onProxyRes: function (proxyRes, req, res) {
+    onProxyRes: function (proxyRes, _req, _res) {
       proxyRes.headers["Access-Control-Allow-Origin"] = API_DOCS_URL;
       proxyRes.headers["Access-Control-Allow-Headers"] = "*";
     },
