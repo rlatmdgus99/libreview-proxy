@@ -7,7 +7,7 @@ const app = express();
 
 // Configuration
 const PORT = process.env.PORT || 3000;
-const API_SERVICE_URL = "https://api-us.libreview.io";
+const API_SERVICE_URL = "https://api-{region}.libreview.io";
 const API_DOCS_URL = "https://libreview-unofficial.stoplight.io";
 
 app.use(morgan("dev"));
@@ -19,11 +19,14 @@ app.get("/", (_req, res, _next) => {
 });
 
 app.use(
-  "/*",
+  "/:region",
   createProxyMiddleware({
     target: API_SERVICE_URL,
     changeOrigin: true,
-    onProxyRes: function (proxyRes, _req, _res) {
+    router: function (req) {
+      return API_SERVICE_URL.replace("{region}", req.params.region);
+    },
+    onProxyRes: function (proxyRes, req, _res) {
       proxyRes.headers["Access-Control-Allow-Origin"] = API_DOCS_URL;
       proxyRes.headers["Access-Control-Allow-Headers"] = "*";
     },
