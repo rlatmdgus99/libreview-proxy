@@ -19,12 +19,15 @@ app.get("/", (_req, res, _next) => {
 });
 
 app.use(
-  "/:region",
+  "/:region/:path([\\s\\S]+)",
   createProxyMiddleware({
     target: API_SERVICE_URL,
     changeOrigin: true,
     router: function (req) {
       return API_SERVICE_URL.replace("{region}", req.params.region);
+    },
+    onProxyReq: function (proxyReq, req, _res) {
+      proxyReq.path = `/${req.params.path}`;
     },
     onProxyRes: function (proxyRes, req, _res) {
       proxyRes.headers["Access-Control-Allow-Origin"] = API_DOCS_URL;
