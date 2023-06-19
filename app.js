@@ -14,7 +14,7 @@ const API_DOCS_URL = "https://libreview-unofficial.stoplight.io";
 app.use(morgan("dev"));
 
 app.get("/", (_req, res, _next) => {
-  res.send(`This is a proxy service for ${API_DOCS_URL}`);
+  res.send(`Proxy for the unofficial API docs for LibreView at ${API_DOCS_URL}.`);
 });
 
 app.use(
